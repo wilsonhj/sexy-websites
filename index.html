@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+    <script src="https://code.jquery.com/jquery-3.2.0.js"></script>
+    <script>
+        
+        $(document).ready(startApp);
+        let music = new Audio("https://r1---sn-a5ms7n7l.c.doc-0-0-sj.sj.googleusercontent.com/videoplayback?id=f724c07837e61c24&itag=25&source=skyjam&begin=5761&len=28000&ratebypass=yes&ip=0.0.0.0&ipbits=0&expire=1561694862&sparams=begin,expire,id,initcwndbps,ip,ipbits,itag,len,mip,mm,mn,ms,mv,pl,ratebypass,source&signature=19AFD8B1A8FE3CEFD9B88760CF77F12E3D1F7F5D.7C2105AB6F2BB35A28678DDBC75130936DCCD3F7&key=cms1&initcwndbps=5920&mip=173.244.36.54&mm=31&mn=sn-a5ms7n7l&ms=au&mt=1561694609&mv=m&pl=24")
+        
+        function startApp(){
+            createStars();
+            $(document).click(repopulate);
+            $(document).click(audio);
+        }
+
+        function audio(){
+            debugger;
+            
+            if(music.paused){
+                music.play();
+                music.playing = false;
+            }
+            
+        }
+        function createStars(){
+            var numStars = Math.floor(Math.random() * 1000);
+            for (let i=0; i<numStars; i++){
+                let twinkle = 1 + Math.random() * 2;
+                let starDiv = $('<div>');
+                starDiv.addClass("star");
+                let random = Math.random() * 100;
+                let random2 = Math.random() * 100;
+
+                let r = Math.random() * 255;
+                let g = Math.random() * 255;
+                let b = Math.random() * 255;
+                
+                let h = numStars/4000;
+                let w = numStars/4000;
+
+                let starOptions = {
+                'left': `${random}%`,
+                'top': `${random2}%`,
+                'background-color': `rgb(${r},${g},${b})`,
+                'height': `${h}%`,
+                'width': `${w}%`
+                }
+                starDiv.css(starOptions);r
+                $('#starField').append(starDiv);
+                starDiv.css(`animation-duration`, `${twinkle}s`);
+            }  
+        }
+        function repopulate(){
+            $('.star').remove();
+            createStars();
+        }
+
+    </script>
+    
+    <style>
+        body{
+            margin: 0
+        }
+        #starField{
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+            position: static;
+        }
+        .star{
+            position: absolute;
+            animation-iteration-count: infinite;
+            animation-name: twinkle;
+            animation-duration: 1s;
+        }
+        @keyframes twinkle {
+            50% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+    <body>
+    <div id="starField"> </div>
+    </body>
+</html>
